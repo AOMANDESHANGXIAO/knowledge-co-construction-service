@@ -5,16 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a375e4c7-605f-4571-acd1-e02a0c636695" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/apis/router/student.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/session.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Class.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Discussion.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Group.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Student.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/db_init.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_create_table.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_delete.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_insert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_select.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_select_join.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_select_where.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_table_fk.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/base/my_update.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/db_init.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_map_class_table.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_map_insert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_map_mapped.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_map_select.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_map_select_single.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_map_update.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map/my_new_map_update.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map_orm/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map_orm/db_init.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map_orm/many_to_many.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/map_orm/query.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/models_test/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/annotated_type.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/table_def.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/session.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/session.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Class.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Group.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Student.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +55,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2i54sXNFWu0vdAbyY9XyF6ykbyh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -45,15 +69,41 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.Student.executor": "Run",
+    "Python.create_table.executor": "Run",
+    "Python.db_init.executor": "Run",
+    "Python.insert.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.my_delete.executor": "Run",
+    "Python.my_map_class_table.executor": "Run",
+    "Python.my_map_insert.executor": "Run",
+    "Python.my_map_mapped.executor": "Run",
+    "Python.my_map_select.executor": "Run",
+    "Python.my_map_select_single.executor": "Run",
+    "Python.my_map_update.executor": "Run",
+    "Python.my_new_map_update.executor": "Run",
+    "Python.my_select.executor": "Run",
+    "Python.my_select_join.executor": "Run",
+    "Python.my_select_where.executor": "Run",
+    "Python.my_table_fk.executor": "Run",
+    "Python.my_update.executor": "Run",
+    "Python.query.executor": "Run",
+    "Python.select.executor": "Run",
     "Python.session.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "settings.editor.selected.configurable": "template.copyright.formatting"
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PyService\pythonProject\demo\map_orm" />
+      <recent name="D:\PyService\pythonProject\demo\map" />
+      <recent name="D:\PyService\pythonProject\demo\base" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

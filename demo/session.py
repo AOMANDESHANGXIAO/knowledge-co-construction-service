@@ -1,9 +1,9 @@
 # 导入sqlalchemy
+import sqlalchemy
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from models.Student import Student
+from models.table_def import Student
 
 # 如果你还没有定义ORM模型，可以这样定义一个简单的User模型
 from sqlalchemy import Column, Integer, String
@@ -53,5 +53,21 @@ def query_students():
         print(student.username, student.id)
 
 
+# 原始的查询
+def query_original():
+    db = next(get_db())
+    # 可以直接写sql语句进行查询
+    query = sqlalchemy.text("select * from student")
+    result = db.execute(query)
+    for row in result:
+        print(type(row))
+        print(row)
+
+
 # query_users()
-query_students()
+# query_students()
+query_original()
+
+
+# 使用完了关闭引擎
+engine.dispose()
