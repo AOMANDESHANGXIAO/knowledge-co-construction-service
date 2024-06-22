@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a375e4c7-605f-4571-acd1-e02a0c636695" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/apis/controller/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/controller/student.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/router/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/orm_query/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/orm_query/db_init.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/common/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/common/common.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/student/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/student/student.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/jwt_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/psd_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/controller/classroom.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/router/classroom.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/classroom/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/classroom/classroom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/controller/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/student.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/router/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/session.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/session.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/map_orm/many_to_many.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/map_orm/many_to_many.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Discussion.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/table_def.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/table_def.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +44,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Python.Student.executor": "Run",
+    "Python.classroom.executor": "Run",
     "Python.common.executor": "Run",
     "Python.create_table.executor": "Run",
     "Python.db_init.executor": "Run",
@@ -83,7 +73,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">

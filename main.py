@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from apis.router.student import user_router
-
+from apis.router.classroom import classroom_router
 
 app = FastAPI()
 
@@ -15,6 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(user_router)
+app.include_router(classroom_router)
 
 
 @app.get("/")

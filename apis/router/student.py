@@ -4,6 +4,7 @@ from models.common.common import CommonResponse
 from apis.controller.student import student_sign_in, student_sign_up
 
 user_router = APIRouter(
+    prefix="/user",
     tags=["Student"]
 )
 
