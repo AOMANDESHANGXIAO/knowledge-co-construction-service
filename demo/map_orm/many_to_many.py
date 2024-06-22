@@ -32,7 +32,7 @@ class User(Base):
     name: Mapped[required_unique_name]
     password: Mapped[required_string]
 
-    roles: Mapped[list["Role"]] = relationship(secondary=association_table, back_populates="users")
+    roles: Mapped[list["Role"]] = relationship(secondary=association_table, back_populates="student")
 
     def __repr__(self) -> str:
         return f"<User(name={self.name!r})>"

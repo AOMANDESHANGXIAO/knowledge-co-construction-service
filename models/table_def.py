@@ -34,8 +34,8 @@ class Student(Base):
     __table_args__ = {'comment': '学生信息表'}
 
     id: Mapped[int_pk]
-    group_id: Mapped[int] = mapped_column(ForeignKey("group.id"), nullable=False)
-    class_id: Mapped[int] = mapped_column(ForeignKey("class.id"), nullable=False)
+    group_id: Mapped[int] = mapped_column(ForeignKey("group.id"), nullable=True)
+    class_id: Mapped[int] = mapped_column(ForeignKey("class.id"), nullable=True)
     username: Mapped[required_unique_name]
     password: Mapped[required_string]
     nickname: Mapped[required_string]
