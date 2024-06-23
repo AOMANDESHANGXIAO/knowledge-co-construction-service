@@ -16,6 +16,7 @@ class Classroom(Base):
 
     students: Mapped[list["Student"]] = relationship(back_populates="classroom")
     discussions: Mapped[list["Discussion"]] = relationship(back_populates="related_class")
+    groups: Mapped[list["Group"]] = relationship(lazy=True, back_populates="belong_classroom")
 
 
 class Group(Base):
@@ -25,7 +26,10 @@ class Group(Base):
     id: Mapped[int_pk]
     group_name: Mapped[required_unique_name]
     group_description: Mapped[required_string]
+    group_code: Mapped[required_unique_name]
+    belong_class_id: Mapped[int] = mapped_column(ForeignKey("class.id"), nullable=True)
 
+    belong_classroom: Mapped["Classroom"] = relationship(lazy=True, back_populates="groups")
     students: Mapped[list["Student"]] = relationship(lazy=True, back_populates="group")
 
 

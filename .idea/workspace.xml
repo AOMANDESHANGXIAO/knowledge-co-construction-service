@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a375e4c7-605f-4571-acd1-e02a0c636695" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/apis/controller/classroom.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/router/classroom.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/classroom/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/classroom/classroom.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/controller/group.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/router/group.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/group/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/group/group.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/student.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/student/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/student/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/table_def.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/table_def.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +48,7 @@
     "Python.common.executor": "Run",
     "Python.create_table.executor": "Run",
     "Python.db_init.executor": "Run",
+    "Python.group.executor": "Run",
     "Python.insert.executor": "Run",
     "Python.jwt_handler.executor": "Run",
     "Python.main.executor": "Run",

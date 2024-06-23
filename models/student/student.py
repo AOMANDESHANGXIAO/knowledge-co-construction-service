@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class Student(BaseModel):
     group_id: str = None
+    group_code: str = None
     class_id: int = None
     username: str
     password: str
