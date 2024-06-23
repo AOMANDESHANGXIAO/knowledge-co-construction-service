@@ -17,6 +17,7 @@ def create_group(params: GroupCreateParams) -> CommonResponse:
                 "group_name": params.group_name,
                 "group_description": params.group_description,
                 "belong_class_id": params.class_id,
+                "group_color": params.group_color
             }
         )
         # 要拿到新插入数据的主键

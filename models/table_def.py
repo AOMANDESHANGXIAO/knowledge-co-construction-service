@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from models.annotated_type import int_pk, required_unique_name, required_string, timestamp_default_now
+from models.annotated_type import int_pk, required_unique_name, required_string, timestamp_default_now, string_255
 
 Base = declarative_base()
 
@@ -27,6 +27,7 @@ class Group(Base):
     group_name: Mapped[required_unique_name]
     group_description: Mapped[required_string]
     group_code: Mapped[required_unique_name]
+    group_color: Mapped[string_255]
     belong_class_id: Mapped[int] = mapped_column(ForeignKey("class.id"), nullable=True)
 
     belong_classroom: Mapped["Classroom"] = relationship(lazy=True, back_populates="groups")
