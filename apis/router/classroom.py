@@ -10,5 +10,5 @@ classroom_router = APIRouter(
 
 
 @classroom_router.get("/queryClassroomList")
-def query_classroom_list_api() -> CommonResponse:
+async def query_classroom_list_api() -> CommonResponse:
     return query_classroom_list()

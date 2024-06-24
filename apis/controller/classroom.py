@@ -7,8 +7,8 @@ def query_classroom_list() -> CommonResponse:
     """
     查询班级列表的方法
     """
+    session = SessionLocal()
     try:
-        session = SessionLocal()
         classroom_list = session.query(Classroom).all()
 
         result = []
@@ -22,4 +22,6 @@ def query_classroom_list() -> CommonResponse:
         return response_success(data={"list": result})
     except Exception as e:
         return response_fail(message=str(e))
+    finally:
+        session.close()
 

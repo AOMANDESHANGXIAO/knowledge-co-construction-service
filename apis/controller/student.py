@@ -11,21 +11,26 @@ def student_sign_up(params: StudentSignUp) -> CommonResponse:
     处理学生注册接口函数
     """
     session = SessionLocal()
-    db_student = session.query(Student).filter(Student.username == params.username).first()
+    try:
+        db_student = session.query(Student).filter(Student.username == params.username).first()
 
-    if db_student:
-        return response_fail(message="用户名已存在")
+        if db_student:
+            return response_fail(message="用户名已存在")
 
-    new_student = Student(
-        **params.dict()
-    )
+        new_student = Student(
+            **params.dict()
+        )
 
-    new_student.password = hash_password(new_student.password)
+        new_student.password = hash_password(new_student.password)
 
-    session.add(new_student)
-    session.commit()
+        session.add(new_student)
+        session.commit()
 
-    return response_success(message="注册成功")
+        return response_success(message="注册成功")
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
 
 
 def student_sign_in(params: StudentSignIn) -> CommonResponse:
@@ -33,25 +38,30 @@ def student_sign_in(params: StudentSignIn) -> CommonResponse:
     处理学生登录接口函数
     """
     session = SessionLocal()
-    db_student = session.query(Student).filter(Student.username == params.username).first()
+    try:
+        db_student = session.query(Student).filter(Student.username == params.username).first()
 
-    if not db_student:
-        return response_fail(message="用户名不存在")
+        if not db_student:
+            return response_fail(message="用户名不存在")
 
-    if not verify_password(params.password, db_student.password):
-        return response_fail(message="密码错误")
+        if not verify_password(params.password, db_student.password):
+            return response_fail(message="密码错误")
 
-    # 将用户信息带回给前端
-    data = {
-        "id": db_student.id,
-        "username": db_student.username,
-        "nickname": db_student.nickname,
-        "class_id": db_student.class_id,
-        "group_id": db_student.group_id,
-        "token": create_access_token(data={"username": db_student.username})
-    }
+        # 将用户信息带回给前端
+        data = {
+            "id": db_student.id,
+            "username": db_student.username,
+            "nickname": db_student.nickname,
+            "class_id": db_student.class_id,
+            "group_id": db_student.group_id,
+            "token": create_access_token(data={"username": db_student.username})
+        }
 
-    return response_success(message="登录成功", data=data)
+        return response_success(message="登录成功", data=data)
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
 
 
 def test_student_sign_up():

@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from apis.router.student import user_router
 from apis.router.classroom import classroom_router
 from apis.router.group import group_router
+from apis.api_router import routers
 
 app = FastAPI()
 
@@ -15,9 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(user_router)
-app.include_router(classroom_router)
-app.include_router(group_router)
+for router in routers:
+    app.include_router(router)
 
 
 @app.get("/")

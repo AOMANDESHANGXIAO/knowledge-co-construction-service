@@ -9,5 +9,6 @@ class GroupCreateParams(BaseModel):
     group_color: str
 
 
-class GroupQueryParams(BaseModel):
+class GroupJoinParams(BaseModel):
     student_id: int
+    group_code: str

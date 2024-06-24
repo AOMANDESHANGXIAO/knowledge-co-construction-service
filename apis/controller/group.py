@@ -1,4 +1,4 @@
-from models.group.group import GroupCreateParams, GroupQueryParams
+from models.group.group import GroupCreateParams, GroupJoinParams
 from models.common.common import CommonResponse, response_success, response_fail
 from db.session import SessionLocal
 from models.table_def import Group, Student
@@ -57,6 +57,35 @@ def create_group(params: GroupCreateParams) -> CommonResponse:
         session.close()
 
 
+def join_group(params: GroupJoinParams) -> CommonResponse:
+    session = SessionLocal()
+    try:
+        db_group = session.query(Group).filter(Group.group_code == params.group_code)
+
+        if not db_group:
+            return response_fail(message="团队不存在")
+
+        db_student = session.query(Student).filter(Student.id == params.student_id).first()
+
+        if db_student.group_id:
+            return response_fail(message="该学生已在团队中")
+
+        session.query(Student).filter(Student.id == params.student_id).update({"group_id": db_group.id})
+
+        return response_success(data={
+            "group_id": db_group.id,
+            "group_name": db_group.group_name,
+            "group_description": db_group.group_description,
+            "group_code": db_group.group_code,
+            "group_color": db_group.group_color,
+            "belong_class_id": db_group.belong_class_id,
+        }, message="加入成功")
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
+
+
 def query_student_group(student_id: int) -> CommonResponse:
     session = SessionLocal()
     try:
@@ -80,6 +109,7 @@ def query_student_group(student_id: int) -> CommonResponse:
         session.close()
 
 
+# ======================================================
 def test_create_group() -> CommonResponse:
     params = GroupCreateParams(
         group_name="test_group4",
