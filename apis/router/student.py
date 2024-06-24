@@ -10,12 +10,12 @@ user_router = APIRouter(
 
 
 @user_router.post("/signup")
-async def sign_up_new_student(params: StudentSignUp) -> CommonResponse:
+async def student_sign_up_api(params: StudentSignUp) -> CommonResponse:
     """Create a new user"""
     return student_sign_up(params)
 
 
 @user_router.post("/signin")
-async def sign_in_new_student(params: StudentSignIn) -> CommonResponse:
+async def student_sign_in_api(params: StudentSignIn) -> CommonResponse:
     """User login in"""
     return student_sign_in(params)
