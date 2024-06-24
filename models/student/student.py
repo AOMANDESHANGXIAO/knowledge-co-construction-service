@@ -20,3 +20,12 @@ class StudentSignUp(BaseModel):
 class StudentSignIn(BaseModel):
     username: str
     password: str
+
+
+class StudentInfo(BaseModel):
+    id: int
+    username: str
+    nickname: str
+    class_id: int
+    group_id: int
+    token: str

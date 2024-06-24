@@ -2,6 +2,6 @@
 from pydantic import BaseModel
 
 
-class ClassRoomQueryListRequest(BaseModel):
+class ClassroomQueryDataItem(BaseModel):
     id: int
-
+    class_name: str

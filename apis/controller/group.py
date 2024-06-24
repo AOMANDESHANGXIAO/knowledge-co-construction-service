@@ -1,4 +1,4 @@
-from models.group.group import GroupCreateParams, GroupJoinParams
+from models.group.group import GroupCreateParams, GroupJoinParams, GroupInfo
 from models.common.common import CommonResponse, response_success, response_fail
 from db.session import SessionLocal
 from models.table_def import Group, Student
@@ -10,7 +10,7 @@ def create_group(params: GroupCreateParams) -> CommonResponse:
         # 查询创建团队的学生是否已经有团队了，有的话就拒绝创建
         db_student = session.query(Student).filter(Student.id == params.student_id).first()
         if db_student.group_id:
-            print("the group_id =", db_student.group_id)
+            # print("the group_id =", db_student.group_id)
             return response_fail(message="该学生已经有团队了")
 
         # 组名不能重复
@@ -41,16 +41,16 @@ def create_group(params: GroupCreateParams) -> CommonResponse:
 
         session.commit()
 
-        data = {
+        data = GroupInfo(**{
             "group_id": new_group.id,
             "group_name": new_group.group_name,
             "group_description": new_group.group_description,
             "group_code": new_group.group_code,
             "group_color": new_group.group_color,
             "belong_class_id": new_group.belong_class_id,
-        }
+        })
 
-        return response_success(message="创建成功", data=data)
+        return response_success(message="创建成功", data=data.__dict__)
     except Exception as e:
         return response_fail(message=str(e))
     finally:

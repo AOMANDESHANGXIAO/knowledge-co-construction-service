@@ -8,7 +8,7 @@ def query_all_discussions(class_id: int) -> CommonResponse:
     """
     查询当前班级所有的讨论话题
     :param class_id:
-    :return: data
+    :return: [DiscussionQueryDataItem]
     """
     session = SessionLocal()
     try:
@@ -44,4 +44,4 @@ def test_query_all_discussions():
     class_id = 1
     print(query_all_discussions(class_id))
 
-test_query_all_discussions()
+# test_query_all_discussions()

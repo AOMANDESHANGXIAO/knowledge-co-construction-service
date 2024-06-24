@@ -1,4 +1,4 @@
-from models.student.student import StudentSignUp, StudentSignIn
+from models.student.student import StudentSignUp, StudentSignIn, StudentInfo
 from db.session import SessionLocal
 from models.table_def import Student
 from models.common.common import CommonResponse, response_success, response_fail
@@ -48,14 +48,14 @@ def student_sign_in(params: StudentSignIn) -> CommonResponse:
             return response_fail(message="密码错误")
 
         # 将用户信息带回给前端
-        data = {
+        data = StudentInfo(**{
             "id": db_student.id,
             "username": db_student.username,
             "nickname": db_student.nickname,
             "class_id": db_student.class_id,
             "group_id": db_student.group_id,
             "token": create_access_token(data={"username": db_student.username})
-        }
+        }).__dict__
 
         return response_success(message="登录成功", data=data)
     except Exception as e:
