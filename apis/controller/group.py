@@ -60,7 +60,7 @@ def create_group(params: GroupCreateParams) -> CommonResponse:
 def join_group(params: GroupJoinParams) -> CommonResponse:
     session = SessionLocal()
     try:
-        db_group = session.query(Group).filter(Group.group_code == params.group_code)
+        db_group = session.query(Group).filter(Group.group_code == params.group_code).first()
 
         if not db_group:
             return response_fail(message="团队不存在")
@@ -71,6 +71,8 @@ def join_group(params: GroupJoinParams) -> CommonResponse:
             return response_fail(message="该学生已在团队中")
 
         session.query(Student).filter(Student.id == params.student_id).update({"group_id": db_group.id})
+
+        session.commit()
 
         return response_success(data={
             "group_id": db_group.id,
@@ -120,10 +122,43 @@ def test_create_group() -> CommonResponse:
 
 
 def test_query_student_group() -> CommonResponse:
-    params = GroupQueryParams(
-        student_id=1
-    )
-    return query_student_group(params)
+    return query_student_group(student_id=1)
 
+
+def test_simple_join_group(params: GroupJoinParams):
+    session = SessionLocal()
+    db_group = session.query(Group).filter(Group.group_code == params.group_code).first()
+
+    if not db_group:
+        return response_fail(message="团队不存在")
+
+    db_student = session.query(Student).filter(Student.id == params.student_id).first()
+
+    if db_student.group_id:
+        return response_fail(message="该学生已在团队中")
+
+    session.query(Student).filter(Student.id == params.student_id).update({"group_id": db_group.id})
+
+    session.commit()
+
+    return response_success(data={
+        "group_id": db_group.id,
+        "group_name": db_group.group_name,
+        "group_description": db_group.group_description,
+        "group_code": db_group.group_code,
+        "group_color": db_group.group_color,
+        "belong_class_id": db_group.belong_class_id,
+    }, message="加入成功")
+
+
+def test_join_group() -> CommonResponse:
+    params = GroupJoinParams(
+        student_id=1,
+        group_code="ckc10"
+    )
+    return test_simple_join_group(params)
+
+
+# print(test_join_group())
 # print(test_query_student_group())
 # print(test_create_group())

@@ -1,8 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from apis.router.student import user_router
-from apis.router.classroom import classroom_router
-from apis.router.group import group_router
 from apis.api_router import routers
 
 app = FastAPI()

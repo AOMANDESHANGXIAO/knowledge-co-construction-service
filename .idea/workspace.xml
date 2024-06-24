@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a375e4c7-605f-4571-acd1-e02a0c636695" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/api_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/api_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/classroom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/controller/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/classroom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/group.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/group/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/group/group.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
