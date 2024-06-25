@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a375e4c7-605f-4571-acd1-e02a0c636695" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/apis/controller/flow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/router/flow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/NodeTable和EdgeTable的设计.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/flow/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/flow/flow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/classroom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/discussion.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/discussion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/classroom/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/classroom/classroom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/group/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/group/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/student/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/student/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/api_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/api_router.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/annotated_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/annotated_type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/table_def.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/table_def.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +50,7 @@
     "Python.create_table.executor": "Run",
     "Python.db_init.executor": "Run",
     "Python.discussion.executor": "Run",
+    "Python.flow.executor": "Run",
     "Python.group.executor": "Run",
     "Python.insert.executor": "Run",
     "Python.jwt_handler.executor": "Run",

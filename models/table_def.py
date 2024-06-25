@@ -2,7 +2,8 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from models.annotated_type import int_pk, required_unique_name, required_string, timestamp_default_now, string_255
+from models.annotated_type import int_pk, required_unique_name, required_string, timestamp_default_now, string_255, \
+    string_128, string_1000
 
 Base = declarative_base()
 
@@ -17,6 +18,7 @@ class Classroom(Base):
     students: Mapped[list["Student"]] = relationship(back_populates="classroom")
     discussions: Mapped[list["Discussion"]] = relationship(back_populates="related_class")
     groups: Mapped[list["Group"]] = relationship(lazy=True, back_populates="belong_classroom")
+    nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_classroom")
 
 
 class Group(Base):
@@ -32,6 +34,7 @@ class Group(Base):
 
     belong_classroom: Mapped["Classroom"] = relationship(lazy=True, back_populates="groups")
     students: Mapped[list["Student"]] = relationship(lazy=True, back_populates="group")
+    nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_group")
 
 
 class Student(Base):
@@ -49,6 +52,7 @@ class Student(Base):
     classroom: Mapped["Classroom"] = relationship(lazy=True, back_populates="students")
     group: Mapped["Group"] = relationship(lazy=True, back_populates="students")
     discussions: Mapped[list["Discussion"]] = relationship(back_populates="creator")
+    nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_student")
 
 
 class Discussion(Base):
@@ -64,3 +68,35 @@ class Discussion(Base):
     # 定义与Student和Class表之间的关系
     creator: Mapped["Student"] = relationship(back_populates="discussions")
     related_class: Mapped["Classroom"] = relationship(back_populates="discussions")
+    nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_discussion")
+
+
+class NodeTable(Base):
+    __tablename__ = 'node_table'
+    __table_args__ = {'comment': '节点信息表'}
+
+    id: Mapped[int_pk]
+    type: Mapped[string_128]  # 节点类型 topic or idea or group
+    content: Mapped[string_1000]
+    class_id: Mapped[int] = mapped_column(ForeignKey("class.id"), nullable=False)
+    group_id: Mapped[int] = mapped_column(ForeignKey("group.id"), nullable=False)
+    student_id: Mapped[int] = mapped_column(ForeignKey("student.id"), nullable=False)
+    topic_id: Mapped[int] = mapped_column(ForeignKey("discussion.id"), nullable=False)
+    created_time: Mapped[timestamp_default_now]
+
+    # 定义与Student, Group表, Class表以及Discussion表之间的关系
+    from_student: Mapped["Student"] = relationship(back_populates="nodes")
+    from_group: Mapped["Group"] = relationship(back_populates="nodes")
+    from_classroom: Mapped["Classroom"] = relationship(back_populates="nodes")
+    from_discussion: Mapped["Discussion"] = relationship(back_populates="nodes")
+
+
+class EdgeTable(Base):
+    __tablename__ = 'edge_table'
+    __table_args__ = {'comment': '边信息表'}
+
+    id: Mapped[int_pk]
+    type: Mapped[string_128]  # 边的类型 approve or reject or group_to_discuss or idea_to_group
+    source: Mapped[int] = mapped_column(ForeignKey("node_table.id"), nullable=False)
+    target: Mapped[int] = mapped_column(ForeignKey("node_table.id"), nullable=False)
+    topic_id: Mapped[int] = mapped_column(ForeignKey("discussion.id"), nullable=False)

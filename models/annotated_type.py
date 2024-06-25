@@ -13,5 +13,9 @@ required_string = Annotated[str, mapped_column(String(128), nullable=False)]
 
 string_255 = Annotated[str, mapped_column(String(255), nullable=True)]
 
+string_128 = Annotated[str, mapped_column(String(128), nullable=False)]
+
+string_1000 = Annotated[str, mapped_column(String(1000), nullable=False)]
+
 timestamp_default_now = Annotated[datetime.datetime, mapped_column(nullable=False, server_default=func.now())]  #
 # serve_default相当于指定sql语句的默认值 需要在建表的时候就写上
