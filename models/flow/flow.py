@@ -29,3 +29,12 @@ class FlowGroupNodeData(BaseModel):
     """
     groupName: str  # 讨论组名称
     groupConclusion: str  # 讨论组得出的结论
+
+
+class FlowProposeIdeaParams(BaseModel):
+    """
+    分享观点的请求参数
+    """
+    topic_id: int
+    student_id: int
+    content: str
