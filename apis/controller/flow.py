@@ -19,6 +19,7 @@ def query_flow_data(topic_id: int) -> CommonResponse:
         nodes = session.query(NodeTable).filter(NodeTable.topic_id == topic_id)
 
         res_node = []
+
         for node in nodes:
             if node.type == NodeTypeDict["topic"]:
                 data = FlowTopicNodeData(text=node.content).__dict__
@@ -33,8 +34,12 @@ def query_flow_data(topic_id: int) -> CommonResponse:
                 })
             elif node.type == NodeTypeDict["idea"]:
                 name = node.from_student.nickname
+
                 node_id = node.id
-                data = FlowIdeaNodeData(name=name, id=node_id).__dict__
+
+                bgc = node.from_student.group.group_color
+
+                data = FlowIdeaNodeData(name=name, id=node_id, bgc=bgc).__dict__
                 res_node.append({
                     "id": str(node.id),
                     "type": node.type,
@@ -47,7 +52,10 @@ def query_flow_data(topic_id: int) -> CommonResponse:
             elif node.type == NodeTypeDict["group"]:
                 groupName = node.from_group.group_name
                 groupConclusion = node.content
-                data = FlowGroupNodeData(groupName=groupName, groupConclusion=groupConclusion).__dict__
+
+                bgc = node.from_group.group_color
+
+                data = FlowGroupNodeData(groupName=groupName, groupConclusion=groupConclusion, bgc=bgc).__dict__
                 res_node.append({
                     "id": str(node.id),
                     "type": node.type,
