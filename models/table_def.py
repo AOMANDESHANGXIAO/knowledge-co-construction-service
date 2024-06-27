@@ -71,6 +71,13 @@ class Discussion(Base):
     nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_discussion")
 
 
+NodeTypeDict = {
+    "topic": "topic",
+    "idea": "idea",
+    "group": "group"
+}
+
+
 class NodeTable(Base):
     __tablename__ = 'node_table'
     __table_args__ = {'comment': '节点信息表'}
@@ -89,6 +96,14 @@ class NodeTable(Base):
     from_group: Mapped["Group"] = relationship(back_populates="nodes")
     from_classroom: Mapped["Classroom"] = relationship(back_populates="nodes")
     from_discussion: Mapped["Discussion"] = relationship(back_populates="nodes")
+
+
+EdgeTypeDict = {
+    "approve": "approve",
+    "reject": "reject",
+    "group_to_discuss": "group_to_discuss",
+    "idea_to_group": "idea_to_group"
+}
 
 
 class EdgeTable(Base):

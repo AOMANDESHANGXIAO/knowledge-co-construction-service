@@ -1,7 +1,9 @@
 from models.common.common import CommonResponse, response_success, response_fail
 from models.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams
-from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom
+from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom, NodeTypeDict, EdgeTypeDict
 from db.session import SessionLocal
+from crud.node_edge.insert import add_node, add_edge
+from crud.student_group.query import query_group_node_from_student
 
 
 def query_flow_data(topic_id: int) -> CommonResponse:
@@ -17,7 +19,7 @@ def query_flow_data(topic_id: int) -> CommonResponse:
 
         res_node = []
         for node in nodes:
-            if node.type == "topic":
+            if node.type == NodeTypeDict["topic"]:
                 data = FlowTopicNodeData(text=node.content).__dict__
                 res_node.append({
                     "id": str(node.id),
@@ -28,7 +30,7 @@ def query_flow_data(topic_id: int) -> CommonResponse:
                         "y": 0
                     }
                 })
-            elif node.type == "idea":
+            elif node.type == NodeTypeDict["idea"]:
                 name = node.from_student.nickname
                 node_id = node.id
                 data = FlowIdeaNodeData(name=name, id=node_id).__dict__
@@ -41,7 +43,7 @@ def query_flow_data(topic_id: int) -> CommonResponse:
                         "y": 0
                     }
                 })
-            elif node.type == "group":
+            elif node.type == NodeTypeDict["group"]:
                 groupName = node.from_group.group_name
                 groupConclusion = node.content
                 data = FlowGroupNodeData(groupName=groupName, groupConclusion=groupConclusion).__dict__
@@ -101,31 +103,24 @@ def propose_new_idea(params: FlowProposeIdeaParams) -> CommonResponse:
     """
     session = SessionLocal()
     try:
-        # 增添新的节点
-        new_node = NodeTable(
-            type="idea",
-            content=params.content,
+        new_node_id = add_node(
+            session,
+            _type=NodeTypeDict["idea"],
             topic_id=params.topic_id,
             student_id=params.student_id,
+            content=params.content
         )
-        session.add(new_node)
-        session.flush()
-        node_id = new_node.id
-        # 增添一个边
-        # 查出来讨论的group_id
-        student = session.query(Student).filter(Student.id == params.student_id).first()
-        group_id = student.group_id
 
-        group_node = session.query(NodeTable).filter(NodeTable.type == "group", NodeTable.group_id == group_id).first()
-        group_node_id = group_node.id
+        group_node_id = query_group_node_from_student(session, params.student_id)
 
-        new_edge = EdgeTable(
-            type="idea_to_group",
-            source=node_id,
+        add_edge(
+            session,
+            _type=EdgeTypeDict["idea_to_group"],
+            source=new_node_id,
             target=group_node_id,
             topic_id=params.topic_id,
         )
-        session.add(new_edge)
+
         session.commit()
         return response_success(message="新增成功")
     except Exception as e:
@@ -149,8 +144,37 @@ def test_propose_new_idea():
         student_id=4,
         content="测试一下"
     )
-    print(propose_new_idea(params))
+    """
+        新增分享观念节点到讨论
+        :param params:
+        :return:
+    """
+    session = SessionLocal()
 
+    new_node_id = add_node(
+        session,
+        _type=NodeTypeDict["idea"],
+        topic_id=params.topic_id,
+        student_id=params.student_id,
+        content=params.content
+    )
+
+    group_node_id = query_group_node_from_student(session, params.student_id)
+
+    add_edge(
+        session,
+        _type=EdgeTypeDict["idea_to_group"],
+        source=new_node_id,
+        target=group_node_id,
+        topic_id=params.topic_id,
+    )
+
+    session.commit()
+    print(response_success(message="新增成功"))
+    return response_success(message="新增成功")
+
+
+# test_propose_new_idea()
 # test_propose_new_idea()
 # test_query_content_data_from_id()
 # test_query_flow_data()
