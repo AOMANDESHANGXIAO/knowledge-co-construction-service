@@ -1,5 +1,6 @@
 from models.common.common import CommonResponse, response_success, response_fail
-from models.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams
+from models.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams, \
+    FlowReplyIdeaParams
 from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom, NodeTypeDict, EdgeTypeDict
 from db.session import SessionLocal
 from crud.node_edge.insert import add_node, add_edge
@@ -129,6 +130,43 @@ def propose_new_idea(params: FlowProposeIdeaParams) -> CommonResponse:
         session.close()
 
 
+def reply_idea(params: FlowReplyIdeaParams) -> CommonResponse:
+    """
+    新增分享观念节点到讨论
+    :param params:
+    :return:
+    """
+    session = SessionLocal()
+    try:
+
+        # 添加新节点
+        new_node_id = add_node(
+            session,
+            _type=NodeTypeDict["idea"],
+            topic_id=params.topic_id,
+            student_id=params.student_id,
+            content=params.content
+        )
+
+        # 添加新的边
+        new_edge_type = EdgeTypeDict["approve"] if params.reply_type else EdgeTypeDict["reject"]
+
+        add_edge(
+            session,
+            _type=new_edge_type,
+            source=new_node_id,
+            target=params.reply_to,
+            topic_id=params.topic_id,
+        )
+
+        session.commit()
+        return response_success(message="新增成功")
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
+
+
 # =================================================
 def test_query_flow_data():
     print(query_flow_data(1))
@@ -174,6 +212,17 @@ def test_propose_new_idea():
     return response_success(message="新增成功")
 
 
+def test_reply_idea():
+    params = FlowReplyIdeaParams(
+        topic_id=1,
+        student_id=4,
+        content="我有意见",
+        reply_to=3,
+        reply_type=0
+    )
+    print(reply_idea(params))
+
+# test_reply_idea()
 # test_propose_new_idea()
 # test_propose_new_idea()
 # test_query_content_data_from_id()

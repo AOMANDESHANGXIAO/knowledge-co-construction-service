@@ -21,6 +21,7 @@ class FlowIdeaNodeData(BaseModel):
     """
     name: str  # 发言学生姓名
     id: int  # 发言学生id
+    bgc: str  # 发言学生颜色和组的颜色一致
 
 
 class FlowGroupNodeData(BaseModel):
@@ -29,6 +30,7 @@ class FlowGroupNodeData(BaseModel):
     """
     groupName: str  # 讨论组名称
     groupConclusion: str  # 讨论组得出的结论
+    bgc: str  # 讨论组颜色
 
 
 class FlowProposeIdeaParams(BaseModel):
@@ -38,3 +40,14 @@ class FlowProposeIdeaParams(BaseModel):
     topic_id: int
     student_id: int
     content: str
+
+
+class FlowReplyIdeaParams(BaseModel):
+    """
+    回复观点的请求参数
+    """
+    topic_id: int
+    student_id: int
+    content: str
+    reply_to: int  # 回复的节点id
+    reply_type: int  # 0 表示反驳 1表示赞成

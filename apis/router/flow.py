@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from apis.controller.flow import query_flow_data, query_content_data_from_id, propose_new_idea
+from apis.controller.flow import query_flow_data, query_content_data_from_id, propose_new_idea, reply_idea
 from models.common.common import CommonResponse
-from models.flow.flow import FlowProposeIdeaParams
+from models.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams
 
 flow_router = APIRouter(
     prefix="/flow",
@@ -39,3 +39,13 @@ async def propose_new_idea_api(params: FlowProposeIdeaParams) -> CommonResponse:
     :return:
     """
     return propose_new_idea(params)
+
+
+@flow_router.post('/reply_idea')
+async def reply_idea_api(params: FlowReplyIdeaParams) -> CommonResponse:
+    """
+    回复观点
+    :param params:
+    :return:
+    """
+    return reply_idea(params)
