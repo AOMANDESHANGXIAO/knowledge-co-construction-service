@@ -101,3 +101,107 @@ CREATE TABLE EdgeTable (
 
 ```
 
+## 对于小组观点可以进行修改，因此需要一张记录表
+
+`node_revise_record_table`
+
+| 字段名         | 字段类型      | 字段描述         | 约束                        |
+| -------------- | ------------- | ---------------- | --------------------------- |
+| id             | int           | 修改id           | auto_increment, primary_key |
+| node_id        | int           | 修改的节点id     | foreigin key                |
+| revise_content | varchar(1000) | 修改的内容       |                             |
+| created_time   | datetime      | 创建时间         |                             |
+| student_id     | int           | 修改节点的学生id | foreign key                 |
+
+```python
+def query_flow_data(topic_id: int) -> CommonResponse:
+    """
+    查询出讨论数据，包含edge和node
+    :param topic_id:
+    :return:
+    """
+    # 首先查询node_table表
+    session = SessionLocal()
+    try:
+        nodes = session.query(NodeTable).filter(NodeTable.topic_id == topic_id)
+
+        res_node = []
+
+        for node in nodes:
+            if node.type == NodeTypeDict["topic"]:
+                data = FlowTopicNodeData(text=node.content).__dict__
+                res_node.append({
+                    "id": str(node.id),
+                    "type": node.type,
+                    "data": data,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    }
+                })
+            elif node.type == NodeTypeDict["idea"]:
+                name = node.from_student.nickname
+
+                node_id = node.id
+
+                bgc = node.from_student.group.group_color
+
+                data = FlowIdeaNodeData(name=name, id=node_id, bgc=bgc).__dict__
+                res_node.append({
+                    "id": str(node.id),
+                    "type": node.type,
+                    "data": data,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    }
+                })
+            elif node.type == NodeTypeDict["group"]:
+                groupName = node.from_group.group_name
+                groupConclusion = node.content
+
+                bgc = node.from_group.group_color
+
+                data = FlowGroupNodeData(groupName=groupName, groupConclusion=groupConclusion, bgc=bgc).__dict__
+                res_node.append({
+                    "id": str(node.id),
+                    "type": node.type,
+                    "data": data,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    }
+                })
+
+        # 查询edge_table表
+        edges = session.query(EdgeTable).filter(EdgeTable.topic_id == topic_id)
+        res_edge = []
+        for edge in edges:
+            res_edge.append({
+                "id": str(edge.id),
+                "source": str(edge.source),
+                "target": str(edge.target),
+                "_type": edge.type,
+                "animated": True
+            })
+
+        return response_success(data={"nodes": res_node, "edges": res_edge})
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
+```
+
+查询类型为idea的节点sql
+
+```sql
+SELECT
+	t1.id AS node_id,
+	t1.content,
+	t2.username,
+	t3.group_color
+FROM
+	node_table t1
+	LEFT JOIN student t2 ON t2.id = t1.student_id join `group` t3 on t3.id = t2.group_id  where t1.type = 'idea';
+```
+

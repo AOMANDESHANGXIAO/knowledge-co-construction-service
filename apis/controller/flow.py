@@ -5,6 +5,7 @@ from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, C
 from db.session import SessionLocal
 from crud.node_edge.insert import add_node, add_edge
 from crud.student_group.query import query_group_node_from_student
+from crud.node_edge.query import query_idea_nodes, query_group_nodes
 
 
 def query_flow_data(topic_id: int) -> CommonResponse:
@@ -16,59 +17,58 @@ def query_flow_data(topic_id: int) -> CommonResponse:
     # 首先查询node_table表
     session = SessionLocal()
     try:
-        nodes = session.query(NodeTable).filter(NodeTable.topic_id == topic_id)
-
         res_node = []
 
-        for node in nodes:
-            if node.type == NodeTypeDict["topic"]:
-                data = FlowTopicNodeData(text=node.content).__dict__
-                res_node.append({
-                    "id": str(node.id),
-                    "type": node.type,
-                    "data": data,
-                    "position": {
-                        "x": 0,
-                        "y": 0
-                    }
-                })
-            elif node.type == NodeTypeDict["idea"]:
-                name = node.from_student.nickname
+        idea_nodes = query_idea_nodes(session, topic_id)
 
-                node_id = node.id
+        for idea in idea_nodes:
+            node = {
+                "id": str(idea["node_id"]),
+                "type": NodeTypeDict["idea"],
+                "data": FlowIdeaNodeData(name=idea["username"], id=idea["node_id"], bgc=idea["group_color"]).__dict__,
+                "position": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+            res_node.append(node)
 
-                bgc = node.from_student.group.group_color
+        # 一般只会有一个topic_node
+        topic_node = session.query(NodeTable).filter(NodeTable.topic_id == topic_id, NodeTable.type == NodeTypeDict["topic"]).first()
 
-                data = FlowIdeaNodeData(name=name, id=node_id, bgc=bgc).__dict__
-                res_node.append({
-                    "id": str(node.id),
-                    "type": node.type,
-                    "data": data,
-                    "position": {
-                        "x": 0,
-                        "y": 0
-                    }
-                })
-            elif node.type == NodeTypeDict["group"]:
-                groupName = node.from_group.group_name
-                groupConclusion = node.content
+        res_node.append({
+            "id": str(topic_node.id),
+            "type": NodeTypeDict["topic"],
+            "data": FlowTopicNodeData(text=topic_node.content).__dict__,
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        })
 
-                bgc = node.from_group.group_color
+        # 查group_node
+        group_nodes = query_group_nodes(session, topic_id)
 
-                data = FlowGroupNodeData(groupName=groupName, groupConclusion=groupConclusion, bgc=bgc).__dict__
-                res_node.append({
-                    "id": str(node.id),
-                    "type": node.type,
-                    "data": data,
-                    "position": {
-                        "x": 0,
-                        "y": 0
-                    }
-                })
+        for group_node in group_nodes:
+            res_node.append({
+                "id": str(group_node["node_id"]),
+                "type": NodeTypeDict["group"],
+                "data": FlowGroupNodeData(
+                    groupName=group_node["group_name"],
+                    groupConclusion=group_node["content"],
+                    bgc=group_node["group_color"]
+                ).__dict__,
+                "position": {
+                    "x": 0,
+                    "y": 0
+                }
+            })
 
         # 查询edge_table表
         edges = session.query(EdgeTable).filter(EdgeTable.topic_id == topic_id)
+
         res_edge = []
+
         for edge in edges:
             res_edge.append({
                 "id": str(edge.id),
