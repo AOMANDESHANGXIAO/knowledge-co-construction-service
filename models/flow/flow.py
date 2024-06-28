@@ -51,3 +51,13 @@ class FlowReplyIdeaParams(BaseModel):
     content: str
     reply_to: int  # 回复的节点id
     reply_type: int  # 0 表示反驳 1表示赞成
+
+
+class FlowReviseGroupConclusionParams(BaseModel):
+    """
+    修改讨论组的结论的请求参数
+    """
+    topic_id: int
+    student_id: int
+    group_id: int
+    conclusion: str

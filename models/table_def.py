@@ -115,3 +115,14 @@ class EdgeTable(Base):
     source: Mapped[int] = mapped_column(ForeignKey("node_table.id"), nullable=False)
     target: Mapped[int] = mapped_column(ForeignKey("node_table.id"), nullable=False)
     topic_id: Mapped[int] = mapped_column(ForeignKey("discussion.id"), nullable=False)
+
+
+class NodeReviseRecordTable(Base):
+    __tablename__ = 'node_revise_record_table'
+    __table_args__ = {'comment': '节点修改记录信息表'}
+
+    id: Mapped[int_pk]
+    node_id: Mapped[int] = mapped_column(ForeignKey("node_table.id"), nullable=False)
+    student_id: Mapped[int] = mapped_column(ForeignKey("student.id"), nullable=False)
+    revise_content: Mapped[string_1000]
+    created_time: Mapped[timestamp_default_now]

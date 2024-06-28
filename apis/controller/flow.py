@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from models.common.common import CommonResponse, response_success, response_fail
 from models.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams, \
-    FlowReplyIdeaParams
-from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom, NodeTypeDict, EdgeTypeDict
+    FlowReplyIdeaParams, FlowReviseGroupConclusionParams
+from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom, NodeTypeDict, EdgeTypeDict, NodeReviseRecordTable
 from db.session import SessionLocal
 from crud.node_edge.insert import add_node, add_edge
 from crud.student_group.query import query_group_node_from_student
@@ -34,7 +36,8 @@ def query_flow_data(topic_id: int) -> CommonResponse:
             res_node.append(node)
 
         # 一般只会有一个topic_node
-        topic_node = session.query(NodeTable).filter(NodeTable.topic_id == topic_id, NodeTable.type == NodeTypeDict["topic"]).first()
+        topic_node = session.query(NodeTable).filter(NodeTable.topic_id == topic_id,
+                                                     NodeTable.type == NodeTypeDict["topic"]).first()
 
         res_node.append({
             "id": str(topic_node.id),
@@ -173,6 +176,36 @@ def reply_idea(params: FlowReplyIdeaParams) -> CommonResponse:
         return response_fail(message=str(e))
     finally:
         session.close()
+
+
+def revise_group_conclusion(params: FlowReviseGroupConclusionParams) -> CommonResponse:
+    """
+    修改小组 conclusion
+    :return:
+    """
+    session = SessionLocal()
+
+    # 更新节点的node
+    session.query(NodeTable).filter(
+        NodeTable.group_id == params.group_id,
+        NodeTable.topic_id == params.topic_id
+    ).update({"content": params.conclusion})
+
+    updated_node = session.query(NodeTable.id).filter(
+        NodeTable.group_id == params.group_id,
+        NodeTable.topic_id == params.topic_id
+    ).first()
+
+    # 修改记录表
+    new_revise_record = NodeReviseRecordTable(
+        node_id=updated_node.id,
+        revise_content=params.conclusion,
+        created_time=datetime.now(),
+        student_id=params.student_id
+    )
+    session.add(new_revise_record)
+    session.commit()
+    return response_success(message="修改成功")
 
 
 # =================================================

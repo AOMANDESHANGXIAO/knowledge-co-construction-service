@@ -101,7 +101,7 @@ CREATE TABLE EdgeTable (
 
 ```
 
-## 对于小组观点可以进行修改，因此需要一张记录表
+## 小组观点可以进行修改，需要一张记录表
 
 `node_revise_record_table`
 
@@ -112,6 +112,22 @@ CREATE TABLE EdgeTable (
 | revise_content | varchar(1000) | 修改的内容       |                             |
 | created_time   | datetime      | 创建时间         |                             |
 | student_id     | int           | 修改节点的学生id | foreign key                 |
+
+```sql
+CREATE TABLE node_revise_record_table (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    node_id INT NOT NULL,
+    revise_content VARCHAR(1000),
+    created_time DATETIME,
+    student_id INT,
+    FOREIGN KEY (node_id) REFERENCES node_table(id),
+    FOREIGN KEY (student_id) REFERENCES student(id) -- 假设有一个 StudentTable 表
+);
+```
+
+
+
+
 
 ```python
 def query_flow_data(topic_id: int) -> CommonResponse:

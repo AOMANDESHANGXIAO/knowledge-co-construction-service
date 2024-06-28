@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
-from apis.controller.flow import query_flow_data, query_content_data_from_id, propose_new_idea, reply_idea
+from apis.controller.flow import query_flow_data, query_content_data_from_id, propose_new_idea, reply_idea, \
+    revise_group_conclusion
 from models.common.common import CommonResponse
-from models.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams
+from models.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams, FlowReviseGroupConclusionParams
 
 flow_router = APIRouter(
     prefix="/flow",
@@ -49,3 +50,13 @@ async def reply_idea_api(params: FlowReplyIdeaParams) -> CommonResponse:
     :return:
     """
     return reply_idea(params)
+
+
+@flow_router.post('/revise_group_conclusion')
+async def revise_group_conclusion_api(params: FlowReviseGroupConclusionParams) -> CommonResponse:
+    """
+    修改团队结论
+    :param params:
+    :return:
+    """
+    return revise_group_conclusion(params)
