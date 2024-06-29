@@ -221,3 +221,41 @@ FROM
 	LEFT JOIN student t2 ON t2.id = t1.student_id join `group` t3 on t3.id = t2.group_id  where t1.type = 'idea';
 ```
 
+
+
+查找小组的分享，反应
+
+```sql
+SELECT
+	t3.username AS `name`,
+	sum( CASE WHEN t1.type = 'idea_to_group' THEN 1 ELSE 0 END ) AS proposeNum,
+	sum( CASE WHEN t1.type = 'reject' OR t1.type = 'approve' THEN 1 ELSE 0 END ) AS feebackNum 
+FROM
+	edge_table t1
+	JOIN node_table t2 ON t1.source = t2.id
+	JOIN student t3 ON t3.id = t2.student_id
+	JOIN `group` t4 ON t4.id = t3.group_id 
+WHERE
+	t4.id = 4 
+GROUP BY
+	t3.username
+```
+
+
+
+```python
+  # 构建查询
+    query = s.query(
+        Student.nickname.label('name'),
+        func.sum(case((EdgeTable.type == 'idea_to_group', 1), else_=0)).label('proposeNum'),
+        func.sum(case((or_(EdgeTable.type == 'reject', EdgeTable.type == 'approve'), 1), else_=0)).label(
+            'feedbackNum')
+    ).join(NodeTable, NodeTable.id == EdgeTable.source).join(Student, Student.id == NodeTable.student_id).join(Group, Group.id == Student.group_id).group_by(Student.id)
+```
+
+
+
+
+
+
+

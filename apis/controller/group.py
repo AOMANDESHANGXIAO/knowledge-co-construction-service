@@ -2,7 +2,8 @@ from models.group.group import GroupCreateParams, GroupJoinParams, GroupInfo
 from models.common.common import CommonResponse, response_success, response_fail
 from db.session import SessionLocal
 from models.table_def import Group, Student
-from crud.group.query import query_group_share_feedback_number, query_discussion_number, query_summary_number
+from crud.group.query import query_group_share_feedback_number, query_discussion_number, query_summary_number, \
+    query_group_student_propose_feedback_data, query_group_student_summary_data
 
 
 def create_group(params: GroupCreateParams) -> CommonResponse:
@@ -114,41 +115,78 @@ def query_student_group(student_id: int) -> CommonResponse:
 
 def query_group_collaboration_data(group_id: int) -> CommonResponse:
     session = SessionLocal()
+    try:
+        share_feedback_data = query_group_share_feedback_number(s=session, group_id=group_id)
 
-    share_feedback_data = query_group_share_feedback_number(s=session, group_id=group_id)
+        db_group = session.query(Group).filter(Group.id == group_id).first()
 
-    db_group = session.query(Group).filter(Group.id == group_id).first()
+        discussion_data = query_discussion_number(s=session, class_id=db_group.belong_class_id)
 
-    discussion_data = query_discussion_number(s=session, class_id=db_group.belong_class_id)
+        summary_data = query_summary_number(s=session, group_id=group_id)
 
-    summary_data = query_summary_number(s=session, group_id=group_id)
-
-    # 依据前端格式要求返回
-    data = {
-        "list": [
-            {
-                "iconName": "discussion",
-                "text": "参与了讨论",
-                "num": discussion_data
-            },
-            {
-                "iconName": "share",
-                "text": "分享过观点",
-                "num": share_feedback_data["share"]
-            },
-            {
-                "iconName": "feedback",
-                "text": "反馈过观点",
-                "num": share_feedback_data["feedback"]
-            },
-            {
-                "iconName": "summary",
-                "text": "总结过观点",
-                "num": summary_data
-            }
-        ]
-    }
+        # 依据前端格式要求返回
+        data = {
+            "list": [
+                {
+                    "iconName": "discussion",
+                    "text": "参与了讨论",
+                    "num": discussion_data
+                },
+                {
+                    "iconName": "share",
+                    "text": "分享过观点",
+                    "num": share_feedback_data["share"]
+                },
+                {
+                    "iconName": "feedback",
+                    "text": "反馈过观点",
+                    "num": share_feedback_data["feedback"]
+                },
+                {
+                    "iconName": "summary",
+                    "text": "总结过观点",
+                    "num": summary_data
+                }
+            ]
+        }
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
     return response_success(data=data)
+
+
+def query_group_member_data(group_id: int) -> CommonResponse:
+    session = SessionLocal()
+    feedback_propose_list = query_group_student_propose_feedback_data(session, group_id)
+
+    feedback_list_data = []
+    propose_list_data = []
+
+    for item in feedback_propose_list:
+        feedback_list_data.append({
+            "value": item["feedbackNum"],
+            "name": item["name"]
+        })
+        propose_list_data.append(({
+            "value": item["proposeNum"],
+            "name": item["name"]
+        }))
+
+    summary_list = query_group_student_summary_data(session, group_id)
+
+    summary_list_data = [
+        {
+            "value": item["summaryNum"],
+            "name": item["name"]
+        } for item in summary_list
+    ]
+
+    return response_success(data={
+        "feedbackList": feedback_list_data,
+        "proposeList": propose_list_data,
+        "summaryList": summary_list_data
+    })
 
 
 # ======================================================
@@ -203,6 +241,10 @@ def test_query_group_collaboration_data():
     print(query_group_collaboration_data(group_id=4))
 
 
+def test_query_group_member_data():
+    print(query_group_member_data(group_id=4))
+
+# test_query_group_member_data()
 # test_query_group_collaboration_data()
 # print(test_join_group())
 # print(test_query_student_group())
