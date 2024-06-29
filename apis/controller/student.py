@@ -47,6 +47,8 @@ def student_sign_in(params: StudentSignIn) -> CommonResponse:
         if not verify_password(params.password, db_student.password):
             return response_fail(message="密码错误")
 
+        db_group = db_student.group
+
         # 将用户信息带回给前端
         data = StudentInfo(**{
             "id": db_student.id,
@@ -54,6 +56,9 @@ def student_sign_in(params: StudentSignIn) -> CommonResponse:
             "nickname": db_student.nickname,
             "class_id": db_student.class_id,
             "group_id": db_student.group_id,
+            "group_color": db_group.group_color if db_group else None,
+            "group_name": db_group.group_name if db_group else None,
+            "group_code": db_group.group_code if db_group else None,
             "token": create_access_token(data={"username": db_student.username})
         }).__dict__
 

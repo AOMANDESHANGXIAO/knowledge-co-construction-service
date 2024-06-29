@@ -28,4 +28,7 @@ class StudentInfo(BaseModel):
     nickname: str
     class_id: int
     group_id: int
+    group_color: str | None
+    group_name: str | None
+    group_code: str | None
     token: str
