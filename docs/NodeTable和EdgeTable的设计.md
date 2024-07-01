@@ -255,7 +255,21 @@ GROUP BY
 
 
 
+查询小组成员分享观点sql
 
+```sql
+SELECT
+	t2.nickname,
+	count( t1.id ) AS summaryNum 
+FROM
+	node_revise_record_table t1
+	join student t2 on t2.id = t1.student_id
+	join `group` t3 on t3.id = t2.group_id
+where 
+	t3.id = 4
+GROUP BY
+	t2.id
+```
 
 
 

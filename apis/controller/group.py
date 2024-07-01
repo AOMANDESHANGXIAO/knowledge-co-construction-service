@@ -1,7 +1,9 @@
+from sqlalchemy import desc, and_
+
 from models.group.group import GroupCreateParams, GroupJoinParams, GroupInfo
 from models.common.common import CommonResponse, response_success, response_fail
 from db.session import SessionLocal
-from models.table_def import Group, Student
+from models.table_def import Group, Student, NodeReviseRecordTable, NodeTable
 from crud.group.query import query_group_share_feedback_number, query_discussion_number, query_summary_number, \
     query_group_student_propose_feedback_data, query_group_student_summary_data
 
@@ -189,6 +191,47 @@ def query_group_member_data(group_id: int) -> CommonResponse:
     })
 
 
+def query_group_revise_data(group_id: int, topic_id: int) -> CommonResponse:
+    session = SessionLocal()
+    # 查NodeReviseRecordTable表
+    try:
+        query = (session.query(
+            NodeReviseRecordTable.revise_content,
+            Student.nickname,
+            NodeReviseRecordTable.created_time
+        ).join(
+            Student,
+            NodeReviseRecordTable.student_id == Student.id
+        ).join(
+            Group,
+            Group.id == Student.group_id
+        ).join(
+            NodeTable,
+            and_(
+                NodeTable.topic_id == topic_id,
+                NodeReviseRecordTable.node_id == NodeTable.id
+            )
+        ).filter(Group.id == group_id).order_by(desc(NodeReviseRecordTable.created_time)).limit(5))
+
+        results = query.all()
+
+        data = {
+            "list": [
+                {
+                    "content": r.revise_content,
+                    "creator": r.nickname,
+                    "timestamp": r.created_time
+                }
+                for r in results
+            ]
+        }
+        return response_success(data=data)
+    except Exception as e:
+        return response_fail(message=str(e))
+    finally:
+        session.close()
+
+
 # ======================================================
 def test_create_group() -> CommonResponse:
     params = GroupCreateParams(
@@ -244,6 +287,10 @@ def test_query_group_collaboration_data():
 def test_query_group_member_data():
     print(query_group_member_data(group_id=4))
 
+
+def test_query_group_revise_data():
+    print(query_group_revise_data(group_id=4, topic_id=1))
+# test_query_group_revise_data()
 # test_query_group_member_data()
 # test_query_group_collaboration_data()
 # print(test_join_group())

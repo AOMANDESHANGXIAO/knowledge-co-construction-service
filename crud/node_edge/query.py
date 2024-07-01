@@ -12,8 +12,9 @@ def query_idea_nodes(s, topic_id: int):
         s.query(
             NodeTable.id.label('node_id'),
             NodeTable.content,
-            Student.username,
-            Group.group_color
+            Student.nickname,
+            Group.group_color,
+            Student.id
         )
         .outerjoin(Student, NodeTable.student_id == Student.id)
         .join(Group, Group.id == Student.group_id)
@@ -28,8 +29,9 @@ def query_idea_nodes(s, topic_id: int):
         {
             "node_id": result.node_id,
             "content": result.content,
-            "username": result.username,
+            "username": result.nickname,
             "group_color": result.group_color,
+            "student_id": result.id
         }
         for result in results
     ]
@@ -49,7 +51,8 @@ def query_group_nodes(s, topic_id: int):
             NodeTable.id.label('node_id'),
             NodeTable.content,
             Group.group_name,
-            Group.group_color
+            Group.group_color,
+            Group.id
         )
         .join(Group, Group.id == NodeTable.group_id)
         .where(NodeTable.type == "group", NodeTable.topic_id == topic_id)
@@ -61,6 +64,7 @@ def query_group_nodes(s, topic_id: int):
             "content": result.content,
             "group_name": result.group_name,
             "group_color": result.group_color,
+            "group_id": result.id
         }
         for result in results
     ]

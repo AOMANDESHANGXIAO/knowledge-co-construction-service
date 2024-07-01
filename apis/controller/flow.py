@@ -27,7 +27,7 @@ def query_flow_data(topic_id: int) -> CommonResponse:
             node = {
                 "id": str(idea["node_id"]),
                 "type": NodeTypeDict["idea"],
-                "data": FlowIdeaNodeData(name=idea["username"], id=idea["node_id"], bgc=idea["group_color"]).__dict__,
+                "data": FlowIdeaNodeData(name=idea["username"], id=idea["node_id"], bgc=idea["group_color"], student_id=idea["student_id"]).__dict__,
                 "position": {
                     "x": 0,
                     "y": 0
@@ -59,7 +59,8 @@ def query_flow_data(topic_id: int) -> CommonResponse:
                 "data": FlowGroupNodeData(
                     groupName=group_node["group_name"],
                     groupConclusion=group_node["content"],
-                    bgc=group_node["group_color"]
+                    bgc=group_node["group_color"],
+                    group_id=group_node["group_id"]
                 ).__dict__,
                 "position": {
                     "x": 0,
