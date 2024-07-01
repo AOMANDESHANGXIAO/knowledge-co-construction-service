@@ -2,7 +2,7 @@ from datetime import datetime
 
 from models.common.common import CommonResponse, response_success, response_fail
 from models.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams, \
-    FlowReplyIdeaParams, FlowReviseGroupConclusionParams
+    FlowReplyIdeaParams, FlowReviseGroupConclusionParams, FlowReviseSelfIdeaParams
 from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom, NodeTypeDict, EdgeTypeDict, NodeReviseRecordTable
 from db.session import SessionLocal
 from crud.node_edge.insert import add_node, add_edge
@@ -209,6 +209,29 @@ def revise_group_conclusion(params: FlowReviseGroupConclusionParams) -> CommonRe
     return response_success(message="修改成功")
 
 
+def revise_self_idea(params: FlowReviseSelfIdeaParams) -> CommonResponse:
+    """
+    修改个人 idea
+    :return:
+    """
+    session = SessionLocal()
+
+    db_node = session.query(NodeTable).filter(NodeTable.id == params.node_id)
+
+    if not db_node:
+        return response_fail(message="node_id不存在")
+    db_node.update({"content": params.content})
+    new_node_revise_record = NodeReviseRecordTable(
+        node_id=params.node_id,
+        revise_content=params.content,
+        created_time=datetime.now(),
+        student_id=params.student_id
+    )
+    session.add(new_node_revise_record)
+    session.commit()
+    return response_success(message="修改成功")
+
+
 # =================================================
 def test_query_flow_data():
     print(query_flow_data(1))
@@ -264,6 +287,16 @@ def test_reply_idea():
     )
     print(reply_idea(params))
 
+
+def test_revise_self_idea():
+    params = FlowReviseSelfIdeaParams(
+        node_id=3,
+        content="我的观点是人工智能会改变这个世界，让我们的世界越来来越智能。",
+        student_id=4
+    )
+    print(revise_self_idea(params))
+
+# test_revise_self_idea()
 # test_reply_idea()
 # test_propose_new_idea()
 # test_propose_new_idea()

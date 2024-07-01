@@ -63,3 +63,12 @@ class FlowReviseGroupConclusionParams(BaseModel):
     student_id: int
     group_id: int
     conclusion: str
+
+
+class FlowReviseSelfIdeaParams(BaseModel):
+    """
+    修改自己的观点的请求参数
+    """
+    node_id: int
+    content: str
+    student_id: int

@@ -1,9 +1,10 @@
 from fastapi import APIRouter
 
 from apis.controller.flow import query_flow_data, query_content_data_from_id, propose_new_idea, reply_idea, \
-    revise_group_conclusion
+    revise_group_conclusion, revise_self_idea
 from models.common.common import CommonResponse
-from models.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams, FlowReviseGroupConclusionParams
+from models.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams, FlowReviseGroupConclusionParams, \
+    FlowReviseSelfIdeaParams
 
 flow_router = APIRouter(
     prefix="/flow",
@@ -60,3 +61,11 @@ async def revise_group_conclusion_api(params: FlowReviseGroupConclusionParams) -
     :return:
     """
     return revise_group_conclusion(params)
+
+
+@flow_router.post('/revise_self_idea')
+async def revise_self_idea_api(params: FlowReviseSelfIdeaParams) -> CommonResponse:
+    """
+    修改自己的想法
+    """
+    return revise_self_idea(params)
