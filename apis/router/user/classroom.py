@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from apis.controller.classroom import query_classroom_list
+from apis.controller.user.classroom import query_classroom_list
 from models.common.common import CommonResponse
 
 classroom_router = APIRouter(

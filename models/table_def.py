@@ -126,3 +126,13 @@ class NodeReviseRecordTable(Base):
     student_id: Mapped[int] = mapped_column(ForeignKey("student.id"), nullable=False)
     revise_content: Mapped[string_1000]
     created_time: Mapped[timestamp_default_now]
+
+
+class Admin(Base):
+    __tablename__ = 'admin'
+    __table_args__ = {'comment': '管理员信息表'}
+
+    id: Mapped[int_pk]
+    username: Mapped[required_unique_name]
+    password: Mapped[required_string]
+    nickname: Mapped[required_string]

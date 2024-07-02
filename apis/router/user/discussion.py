@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from apis.controller.discussion import query_all_discussions
+from apis.controller.user.discussion import query_all_discussions
 from models.common.common import CommonResponse
 
 discussion_router = APIRouter(

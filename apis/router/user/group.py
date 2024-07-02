@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from models.group.group import GroupCreateParams, GroupJoinParams
 from models.common.common import CommonResponse
-from apis.controller.group import create_group, query_student_group, join_group, query_group_collaboration_data, \
+from apis.controller.user.group import create_group, query_student_group, join_group, query_group_collaboration_data, \
     query_group_member_data, query_group_revise_data
 
 group_router = APIRouter(
