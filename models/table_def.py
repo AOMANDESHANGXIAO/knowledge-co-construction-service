@@ -52,7 +52,7 @@ class Student(Base):
     # 定义映射关系
     classroom: Mapped["Classroom"] = relationship(lazy=True, back_populates="students")
     group: Mapped["Group"] = relationship(lazy=True, back_populates="students")
-    discussions: Mapped[list["Discussion"]] = relationship(back_populates="creator")
+    # discussions: Mapped[list["Discussion"]] = relationship(back_populates="creator")
     nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_student")
 
 
@@ -63,11 +63,12 @@ class Discussion(Base):
     id: Mapped[int_pk]
     topic_content: Mapped[required_string]
     created_time: Mapped[timestamp_default_now]
-    created_user_id: Mapped[int] = mapped_column(ForeignKey("student.id"), nullable=False)
+    created_user_id: Mapped[int] = mapped_column(ForeignKey("admin.id"), nullable=False)
     topic_for_class_id: Mapped[int] = mapped_column(ForeignKey("class.id"), nullable=False)
 
     # 定义与Student和Class表之间的关系
-    creator: Mapped["Student"] = relationship(back_populates="discussions")
+    creator: Mapped["Admin"] = relationship(lazy=True, back_populates="discussions")
+    # creator: Mapped["Student"] = relationship(back_populates="discussions")
     related_class: Mapped["Classroom"] = relationship(back_populates="discussions")
     nodes: Mapped[list["NodeTable"]] = relationship(back_populates="from_discussion")
 
@@ -137,3 +138,5 @@ class Admin(Base):
     username: Mapped[required_unique_name]
     password: Mapped[required_string]
     nickname: Mapped[required_string]
+
+    discussions: Mapped[list["Discussion"]] = relationship(back_populates="creator")

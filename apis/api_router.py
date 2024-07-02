@@ -5,7 +5,7 @@ from apis.router.user.discussion import discussion_router
 from apis.router.user.flow import flow_router
 from apis.router.admin.sign import admin_sign_router
 from apis.router.admin._class import _class_router
-
+from apis.router.admin.discussion import admin_discussion_router
 
 routers = [
     classroom_router,
@@ -14,5 +14,6 @@ routers = [
     discussion_router,
     flow_router,
     admin_sign_router,
-    _class_router
+    _class_router,
+    admin_discussion_router
 ]
