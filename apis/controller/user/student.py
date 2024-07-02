@@ -1,4 +1,4 @@
-from models.student.student import StudentSignUp, StudentSignIn, StudentInfo
+from models.user.student.student import StudentSignUp, StudentSignIn, StudentInfo
 from db.session import SessionLocal
 from models.table_def import Student
 from models.common.common import CommonResponse, response_success, response_fail

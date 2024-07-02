@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from apis.controller.user.flow import query_flow_data, query_content_data_from_id, propose_new_idea, reply_idea, \
     revise_group_conclusion, revise_self_idea
 from models.common.common import CommonResponse
-from models.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams, FlowReviseGroupConclusionParams, \
+from models.user.flow.flow import FlowProposeIdeaParams, FlowReplyIdeaParams, FlowReviseGroupConclusionParams, \
     FlowReviseSelfIdeaParams
 
 flow_router = APIRouter(

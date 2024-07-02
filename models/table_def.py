@@ -14,6 +14,7 @@ class Classroom(Base):
 
     id: Mapped[int_pk]
     class_name: Mapped[required_unique_name]
+    status: Mapped[int] = mapped_column(default=1)
 
     students: Mapped[list["Student"]] = relationship(back_populates="classroom")
     discussions: Mapped[list["Discussion"]] = relationship(back_populates="related_class")

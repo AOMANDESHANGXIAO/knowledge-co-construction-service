@@ -5,22 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a375e4c7-605f-4571-acd1-e02a0c636695" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/apis/controller/admin/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/controller/user/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/router/admin/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apis/router/user/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/controller/admin/classManage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/admin/classManage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user/classroom/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user/discussion/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user/flow/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user/group/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user/student/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/api_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/api_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/classroom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/discussion.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/discussion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/flow.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/flow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/controller/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/classroom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/discussion.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/discussion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/flow.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/flow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/router/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/controller/user/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/classroom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/controller/user/discussion.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/discussion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/controller/user/flow.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/flow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/controller/user/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/controller/user/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/user/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/router/user/flow.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/flow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/router/user/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/router/user/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/user/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/classroom/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/controller/admin/sign.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/classroom/classroom.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/classroom/classroom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/discussion/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/admin/_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/discussion/discussion.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/discussion/discussion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/flow/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/router/admin/sign.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/flow/flow.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/flow/flow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/group/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/admin/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/group/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/group/group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/student/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/admin/adminer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/student/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/student/student.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/table_def.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/table_def.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,15 +97,17 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/PyService/pythonProject/apis/controller/user",
+    "last_opened_file_path": "D:/PyService/pythonProject/models/user",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PyService\pythonProject\models\user" />
+      <recent name="D:\PyService\pythonProject\apis\controller\user" />
+      <recent name="D:\PyService\pythonProject\apis\router\user" />
       <recent name="D:\PyService\pythonProject\demo\map_orm" />
       <recent name="D:\PyService\pythonProject\demo\map" />
-      <recent name="D:\PyService\pythonProject\demo\base" />
     </key>
   </component>
   <component name="SharedIndexes">

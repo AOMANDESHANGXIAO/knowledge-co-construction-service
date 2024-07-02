@@ -1,6 +1,6 @@
 from sqlalchemy import desc, and_
 
-from models.group.group import GroupCreateParams, GroupJoinParams, GroupInfo
+from models.user.group.group import GroupCreateParams, GroupJoinParams, GroupInfo
 from models.common.common import CommonResponse, response_success, response_fail
 from db.session import SessionLocal
 from models.table_def import Group, Student, NodeReviseRecordTable, NodeTable

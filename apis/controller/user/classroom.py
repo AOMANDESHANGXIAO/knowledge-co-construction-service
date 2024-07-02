@@ -1,5 +1,5 @@
 from models.common.common import response_success, response_fail, CommonResponse
-from models.classroom.classroom import ClassroomQueryDataItem
+from models.user.classroom.classroom import ClassroomQueryDataItem
 from models.table_def import Classroom
 from db.session import SessionLocal
 

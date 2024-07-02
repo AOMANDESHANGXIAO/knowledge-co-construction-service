@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from models.common.common import CommonResponse, response_success, response_fail
-from models.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams, \
+from models.user.flow.flow import FlowGroupNodeData, FlowIdeaNodeData, FlowTopicNodeData, FlowProposeIdeaParams, \
     FlowReplyIdeaParams, FlowReviseGroupConclusionParams, FlowReviseSelfIdeaParams
-from models.table_def import NodeTable, EdgeTable, Discussion, Student, Group, Classroom, NodeTypeDict, EdgeTypeDict, NodeReviseRecordTable
+from models.table_def import NodeTable, EdgeTable, NodeTypeDict, EdgeTypeDict, NodeReviseRecordTable
 from db.session import SessionLocal
 from crud.node_edge.insert import add_node, add_edge
 from crud.student_group.query import query_group_node_from_student

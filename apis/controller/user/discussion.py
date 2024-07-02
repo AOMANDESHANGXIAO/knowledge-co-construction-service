@@ -1,6 +1,6 @@
 from db.session import SessionLocal
 from models.common.common import CommonResponse, response_success, response_fail
-from models.discussion.discussion import DiscussionQueryDataItem
+from models.user.discussion.discussion import DiscussionQueryDataItem
 from models.table_def import Discussion
 
 

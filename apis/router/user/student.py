@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.student.student import StudentSignIn, StudentSignUp
+from models.user.student.student import StudentSignIn, StudentSignUp
 from models.common.common import CommonResponse
 from apis.controller.user.student import student_sign_in, student_sign_up
 
